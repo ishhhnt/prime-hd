@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PRIME HD - ISHNT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+                "meshopt_decoder": "./libs/meshopt_decoder.module.js"
+            }
+        }
+    </script>
+    <script>
+        window.addEventListener('error', function (e) {
+            var lbl = document.getElementById('status-label');
+            if (lbl) {
+                lbl.style.color = '#ff4d4d';
+                lbl.innerText = 'ERROR: ' + (e.message || 'Check console');
+            }
+        });
+        window.addEventListener('unhandledrejection', function (e) {
+            var lbl = document.getElementById('status-label');
+            if (lbl) {
+                lbl.style.color = '#ff4d4d';
+                lbl.innerText = 'ERROR: ' + (e.reason ? (e.reason.message || e.reason) : 'Promise rejected');
+            }
+        });
+        window.enterLobbyFallback = function() {
+            var ls = document.getElementById('loading-screen');
+            var lobby = document.getElementById('lobby-screen');
+            if (ls) {
+                ls.style.opacity = '0';
+                ls.style.pointerEvents = 'none';
+                setTimeout(function() {
+                    ls.style.display = 'none';
+                    if (lobby) lobby.style.display = 'flex';
+                }, 350);
+            }
+        };
+        setTimeout(function() {
+            var btn = document.getElementById('skip-loading-btn');
+            if (btn) btn.style.display = 'block';
+        }, 3500);
+        if (window.location.protocol === 'file:') {
+            window.addEventListener('DOMContentLoaded', function () {
+                var el = document.getElementById('file-protocol-warning');
+                if (el) el.style.display = 'flex';
+            });
+        }
+    </script>
+</head>
+<body>
+
+    <!-- FILE PROTOCOL SECURITY WARNING (Shown only if opened directly via file://) -->
+    <div id="file-protocol-warning" style="display:none; position:fixed; inset:0; background:rgba(7,7,9,0.96); z-index:99999; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:30px; font-family:'Inter',sans-serif; color:#fff;">
+        <div style="font-size:2.2rem; font-weight:700; letter-spacing:4px; margin-bottom:12px;">PRIME <span style="color:#f0c030;">HD</span></div>
+        <div style="font-size:1.1rem; font-weight:700; margin-bottom:14px; color:#ffffff; letter-spacing:1px;">⚠️ LOCAL WEB SERVER REQUIRED</div>
+        <p style="max-width:520px; font-size:0.92rem; line-height:1.6; color:#aab0c2; margin-bottom:24px;">
+            Modern web browsers block 3D GLTF models and ES modules when opening files directly with <code style="color:#ffffff; background:rgba(255,255,255,0.12); padding:2px 6px;">file:///</code>.<br><br>
+            To play the game, double-click <b style="color:#fff;">start.bat</b> in this folder or open with <b>VS Code Live Server</b>!
+        </p>
+        <button onclick="document.getElementById('file-protocol-warning').style.display='none'" style="padding:10px 24px; background:#ffffff; color:#000; border:none; font-weight:700; font-size:0.85rem; letter-spacing:2px; cursor:pointer;">DISMISS</button>
+    </div>
+
+    <!-- MINIMAL MODERN LOADING SCREEN -->
+    <div id="loading-screen">
+        <div class="minimal-loader" style="text-align:center;">
+            <div class="loader-top">
+                <span class="loader-brand">PRIME<span>HD</span></span>
+                <span id="loading-percentage">0%</span>
+            </div>
+            <div class="loader-track">
+                <div id="loading-bar"></div>
+            </div>
+            <div class="loader-bottom">
+                <span id="status-label">LOADING ENGINE</span>
+                <span class="loader-author">BY ISHNT</span>
+            </div>
+            <button id="skip-loading-btn" onclick="window.enterLobbyFallback()" style="display:none; margin:18px auto 0; padding:10px 24px; background:#ffffff; color:#000; font-weight:700; font-size:0.75rem; letter-spacing:2px; border:none; cursor:pointer;">ENTER GARAGE ▸</button>
+        </div>
+    </div>
+
+    <!-- MODERN AAA RACING SHOWROOM LOBBY -->
+    <div id="lobby-screen">
+        <div class="lobby-top">
+            <div class="lobby-brand">PRIME <span class="brand-accent">// HORIZON</span></div>
+            <div class="lobby-top-pills">
+                <button id="open-settings-btn" class="settings-trigger-btn" aria-label="Settings">⚙</button>
+            </div>
+        </div>
+
+        <div class="lobby-body">
+            <!-- 1. VEHICLE SHOWROOM SELECTOR (LEFT SIDE) -->
+            <div class="lobby-panel garage-panel" id="garage-panel">
+                <div class="panel-header">
+                    <span class="panel-title">CARS</span>
+                </div>
+                <div class="car-switcher">
+                    <div class="car-slot selected" id="opt-dodge" data-car="dodge">
+                        <div class="slot-badge badge-s1">S1 820</div>
+                        <div class="slot-name">SRT HELLCAT</div>
+                        <div class="slot-sub">6.2L SUPERCHARGED · RWD</div>
+                    </div>
+                    <div class="car-slot" id="opt-colorado" data-car="colorado">
+                        <div class="slot-badge badge-a">A 710</div>
+                        <div class="slot-name">CHEVROLET COLORADO</div>
+                        <div class="slot-sub">2.7L TURBO 4WD HIGH-OUTPUT</div>
+                    </div>
+                    <div class="car-slot" id="opt-colorado_z" data-car="colorado_z">
+                        <div class="slot-badge badge-a">A 760</div>
+                        <div class="slot-name">COLORADO Z71</div>
+                        <div class="slot-sub">TWIN-TURBO OFF-ROAD RALLY</div>
+                    </div>
+                    <div class="car-slot" id="opt-custom" data-car="custom">
+                        <div class="slot-badge badge-s2">S2 950</div>
+                        <div class="slot-name">GT SUPERCAR</div>
+                        <div class="slot-sub">4.0L TWIN-TURBO 8000 RPM</div>
+                    </div>
+                    <div class="car-slot" id="opt-police" data-car="police">
+                        <div class="slot-badge badge-s1">S1 850</div>
+                        <div class="slot-name">POLICE INTERCEPTOR</div>
+                        <div class="slot-sub">PURSUIT V8 · LIGHTBAR &amp; SIREN</div>
+                    </div>
+                    <div class="car-slot" id="opt-truck" data-car="truck">
+                        <div class="slot-badge badge-b">B 600</div>
+                        <div class="slot-name">FREIGHT TRUCK</div>
+                        <div class="slot-sub">14.8L TURBO DIESEL · 18 TON</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MAP AND MODE OPTIONS -->
+            <div class="lobby-right-column">
+                <!-- Map / District Section (Separate Panel) -->
+                <div class="lobby-panel map-panel" id="map-panel">
+                    <div class="panel-header">
+                        <span class="panel-title">MAP</span>
+                    </div>
+                    <div class="district-grid">
+                        <button class="district-btn seg-btn active" data-city="1">
+                            <span class="d-tag">CITY 1</span>
+                            <span class="d-name">DOWNTOWN SKYLINE</span>
+                        </button>
+                        <button class="district-btn seg-btn" data-city="2">
+                            <span class="d-tag">CITY 2</span>
+                            <span class="d-name">MEGA METROPOLIS</span>
+                        </button>
+                    </div>
+                    <div id="city-status" class="city-status-badge">CITY 1 DOWNTOWN ACTIVE</div>
+                </div>
+
+                <!-- Game Mode Section (Separate Panel) -->
+                <div class="lobby-panel mode-panel" id="mode-panel">
+                    <div class="panel-header">
+                        <span class="panel-title">MODE</span>
+                    </div>
+                    <div class="mode-list">
+                        <button class="mode-row active" data-mode="free">
+                            <span class="mr-icon">⚡</span>
+                            <span class="mr-text"><b>FREE ROAM</b><small>Open World Cruise &amp; Highway Traffic</small></span>
+                        </button>
+                        <button class="mode-row" data-mode="police_patrol">
+                            <span class="mr-icon">🚨</span>
+                            <span class="mr-text"><b>POLICE PURSUIT</b><small>Take Interceptor SUV, chase &amp; disable suspect</small></span>
+                        </button>
+                        <button class="mode-row" data-mode="police_chase">
+                            <span class="mr-icon">🔥</span>
+                            <span class="mr-text"><b>OUTLAW ESCAPE</b><small>3-Star Heat: Evade aggressive tactical pursuit</small></span>
+                        </button>
+                        <button class="mode-row" data-mode="race">
+                            <span class="mr-icon">🏁</span>
+                            <span class="mr-text"><b>STREET SPRINT</b><small>Beat 3 AI competitors through highway gates</small></span>
+                        </button>
+                        <button class="mode-row" data-mode="parking">
+                            <span class="mr-icon">🅿️</span>
+                            <span class="mr-text"><b>PRECISION PARKING</b><small>Park in 3 tight bays without scratching</small></span>
+                        </button>
+                        <button class="mode-row" data-mode="delivery">
+                            <span class="mr-icon">📦</span>
+                            <span class="mr-text"><b>CARGO RUN</b><small>3 timed package drops against the clock</small></span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Telemetry Card (Separate Panel) -->
+                <div class="lobby-panel info-panel" id="telemetry-panel">
+                    <div class="telemetry-top">
+                        <span class="car-badge" id="lobby-car-badge">S1 820</span>
+                        <span class="car-tag">PERFORMANCE</span>
+                    </div>
+                    <h1 id="lobby-car-title">SRT HELLCAT</h1>
+                    <div class="car-sub" id="lobby-car-sub">6.2L SUPERCHARGED HEMI V8</div>
+                    
+                    <div class="car-specs">
+                        <div class="spec-item">
+                            <div class="spec-head"><span>TOP SPEED</span><b id="spec-val-speed">92%</b></div>
+                            <div class="spec-bar"><div id="spec-speed" style="width: 92%"></div></div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-head"><span>ACCELERATION</span><b id="spec-val-accel">94%</b></div>
+                            <div class="spec-bar"><div id="spec-accel" style="width: 94%"></div></div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-head"><span>HANDLING</span><b id="spec-val-handling">74%</b></div>
+                            <div class="spec-bar"><div id="spec-handling" style="width: 74%"></div></div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-head"><span>BRAKING</span><b id="spec-val-braking">78%</b></div>
+                            <div class="spec-bar"><div id="spec-braking" style="width: 78%"></div></div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-head"><span>ARMOR &amp; RAM</span><b id="spec-val-armor">82%</b></div>
+                            <div class="spec-bar"><div id="spec-armor" style="width: 82%"></div></div>
+                        </div>
+                    </div>
+
+                    <div class="info-divider"></div>
+                    <div class="car-tag">ACTIVE EVENT</div>
+                    <h2 id="mode-info-title">FREE ROAM</h2>
+                    <p id="mode-info-text"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="lobby-bottom">
+            <div class="lobby-hint">
+                <span class="hint-pill"><kbd>W</kbd><kbd>S</kbd> DRIVE</span>
+                <span class="hint-pill"><kbd>A</kbd><kbd>D</kbd> STEER</span>
+                <span class="hint-pill"><kbd>SPACE</kbd> HANDBRAKE</span>
+                <span class="hint-pill"><kbd>H</kbd> POLICE SIREN</span>
+                <span class="hint-pill"><kbd>C</kbd> CAM</span>
+                <span class="hint-pill"><kbd>R</kbd> RESET</span>
+            </div>
+            <button class="drive-btn" id="start-drive-btn">DRIVE ▸</button>
+        </div>
+    </div>
+
+    <!-- MODERN AAA SETTINGS MODAL -->
+    <div id="settings-modal" class="modal-overlay" style="display: none;">
+        <div class="settings-card modern-settings-card">
+            <div class="settings-header">
+                <div>
+                    <h2>SETTINGS // PREFERENCES</h2>
+                    <span class="settings-subtitle">GRAPHICS, AUDIO &amp; GAMEPLAY CONFIGURATION</span>
+                </div>
+                <button id="close-settings-btn" class="close-btn">&times;</button>
+            </div>
+
+            <div class="tab-row">
+                <button class="tab-btn active" data-tab="tab-graphics">GRAPHICS</button>
+                <button class="tab-btn" data-tab="tab-audio">AUDIO</button>
+                <button class="tab-btn" data-tab="tab-control">CONTROLS</button>
+            </div>
+
+            <!-- GRAPHICS TAB -->
+            <div class="tab-panel" id="tab-graphics">
+                <div class="setting-row">
+                    <div class="setting-info">
+                        <span class="setting-title">Graphics Quality</span>
+                        <span class="setting-desc">Low: 1× pixel ratio, no shadows · High: full resolution and shadows</span>
+                    </div>
+                    <div class="quality-btn-group">
+                        <button class="q-btn active" data-quality="low">LOW</button>
+                        <button class="q-btn" data-quality="high">HIGH</button>
+                    </div>
+                </div>
+
+                <div class="setting-row">
+                    <div class="setting-info">
+                        <span class="setting-title">Frame Rate Limit</span>
+                        <span class="setting-desc">Caps drawn frames per second</span>
+                    </div>
+                    <div class="opt-row">
+                        <button class="opt-chip" data-opt="fps" data-val="30">30</button>
+                        <button class="opt-chip active" data-opt="fps" data-val="60">60</button>
+                        <button class="opt-chip" data-opt="fps" data-val="0">UNLIMITED</button>
+                    </div>
+                </div>
+
+                <div class="setting-row">
+                    <div class="setting-info">
+                        <span class="setting-title">Show FPS</span>
+                        <span class="setting-desc">Frame counter in the HUD</span>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="fps-toggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-row">
+                    <div class="setting-info">
+                        <span class="setting-title">Visual Style</span>
+                        <span class="setting-desc">Colour grading look</span>
+                    </div>
+                    <div class="opt-row">
+                        <button class="opt-chip style-chip active" data-style="default">DEFAULT</button>
+                        <button class="opt-chip style-chip" data-style="gta">GTA V</button>
+                        <button class="opt-chip style-chip" data-style="bw">B &amp; W</button>
+                    </div>
+                </div>
+
+                <div class="setting-row">
+                    <div class="setting-info">
+                        <span class="setting-title">GTA V Cinematic Post-FX</span>
+                        <span class="setting-desc">Bloom, film grain &amp; color split-tone</span>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="gta-style-toggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- AUDIO TAB -->
+            <div class="tab-panel" id="tab-audio" hidden>
+                <div class="setting-row">
+                    <div class="setting-info">
+                        <span class="setting-title">Master Volume</span>
+                        <span class="setting-val" id="master-vol-label">80%</span>
+                    </div>
+                    <input type="range" id="master-vol-slider" min="0" max="100" step="5" value="80">
+                </div>
+
+                <div class="setting-row">
+                    <div class="setting-info">
+                        <span class="setting-title">Engine Sound Volume</span>
+                        <span class="setting-val" id="engine-vol-label">70%</span>
+                    </div>
+                    <input type="range" id="engine-vol-slider" min="0" max="100" step="5" value="70">
+                </div>
+
+                <div class="setting-row">
+                    <div class="setting-info">
+                        <span class="setting-title">Police Siren Volume</span>
+                        <span class="setting-val" id="siren-vol-label">75%</span>
+                    </div>
+                    <input type="range" id="siren-vol-slider" min="0" max="100" step="5" value="75">
+                </div>
+
+                <div class="setting-row">
+                    <div class="setting-info">
+                        <span class="setting-title">Mute All Audio</span>
+                        <span class="setting-desc">Silence engine, sirens, and effects</span>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="mute-toggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- CONTROL TAB -->
+            <div class="tab-panel" id="tab-control" hidden>
+                <div class="setting-row">
+                    <div class="setting-info">
+                        <span class="setting-title">Transmission / Gearbox</span>
+                        <span class="setting-desc">Auto shifts smoothly. Manual uses E (up) and Q (down)</span>
+                    </div>
+                    <div class="opt-row">
+                        <button class="opt-chip active" data-opt="gear" data-val="auto">AUTO</button>
+                        <button class="opt-chip" data-opt="gear" data-val="manual">MANUAL</button>
+                    </div>
+                </div>
+
+                <div class="setting-row">
+                    <div class="setting-info">
+                        <span class="setting-title">Gas &amp; Brake Pedals</span>
+                        <span class="setting-desc">Hold to press, or tap once to latch</span>
+                    </div>
+                    <div class="opt-row">
+                        <button class="opt-chip active" data-opt="pedal" data-val="hold">HOLD</button>
+                        <button class="opt-chip" data-opt="pedal" data-val="toggle">TOGGLE</button>
+                    </div>
+                </div>
+
+                <div class="setting-row">
+                    <div class="setting-info">
+                        <span class="setting-title">Keyboard Controls</span>
+                        <span class="setting-desc">W / S Gas &amp; Brake · A / D Steer · SPACE Handbrake · H Siren · C Camera · R Reset</span>
+                    </div>
+                </div>
+            </div>
+
+            <button id="apply-settings-btn" class="apply-btn">SAVE &amp; APPLY</button>
+        </div>
+    </div>
+
+    <!-- MODERN AAA IN-GAME HUD -->
+    <div id="game-hud" style="display: none;">
+        <!-- EVENT OBJECTIVE BANNER (MODERN RACING HUD) -->
+        <div id="mission-hud" class="modern-event-hud" style="display: none;">
+            <div id="mission-title" class="event-type-badge">EVENT</div>
+            <div id="mission-desc" class="event-desc"></div>
+            <div id="mission-sub" class="event-sub"></div>
+        </div>
+
+        <!-- MODERN GPS RADAR (TOP-LEFT WITH LOCATION BADGE & METERS) -->
+        <div id="radar-container" class="modern-radar-pod">
+            <div class="radar-header">
+                <span class="gps-icon">📍</span>
+                <span id="radar-district">DOWNTOWN SKYLINE</span>
+            </div>
+            <div class="radar-frame">
+                <canvas id="minimap" width="120" height="120"></canvas>
+            </div>
+            <div class="radar-meters">
+                <div class="radar-meter-track health-track" title="Vehicle Integrity">
+                    <div id="radar-health" class="radar-meter-fill health-fill" style="width: 100%;"></div>
+                </div>
+                <div class="radar-meter-track armor-track" title="Ramming Armor">
+                    <div id="radar-armor" class="radar-meter-fill armor-fill" style="width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODERN AAA DIGITAL TACHOMETER & SPEEDOMETER (BOTTOM-RIGHT) -->
+        <div id="speedo-container" class="modern-speedo-pod">
+            <canvas id="speedo-canvas" width="180" height="180"></canvas>
+            <div class="speedo-center">
+                <div id="speed">0</div>
+                <div class="speed-unit">KM/H</div>
+                <div id="gear-info" class="gear-badge">1</div>
+            </div>
+            <div id="rpm-track" style="display: none;"><div id="rpm-bar"></div></div>
+            <div id="fps-counter" style="display: none;"></div>
+        </div>
+
+        <div id="center-msg"></div>
+
+        <div id="result-panel" style="display: none;">
+            <div class="result-card modern-result-card">
+                <div id="result-title">EVENT RESULT</div>
+                <div id="result-body"></div>
+                <div class="result-btns">
+                    <button class="drive-btn" id="result-retry">RETRY EVENT</button>
+                    <button class="ui-btn" id="result-exit">SHOWROOM</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOP RIGHT MENU (FLOATING FROSTED PILLS) -->
+        <div id="top-right-ui" class="modern-top-menu">
+            <button class="ui-btn siren-btn" id="siren-btn" style="display: none;">🚨 SIREN</button>
+            <button class="ui-btn" id="lobby-return-btn">SHOWROOM</button>
+            <button class="ui-btn" id="ingame-settings-btn">⚙ SETTINGS</button>
+            <button class="ui-btn" id="cam-toggle">CAM: CHASE</button>
+            <button class="ui-btn" id="reset-btn">RESET</button>
+            <div class="gear-btns">
+                <button class="ui-btn" id="gear-up">+</button>
+                <button class="ui-btn" id="gear-down">-</button>
+            </div>
+        </div>
+
+        <!-- RESPONSIVE ON-SCREEN TOUCH CONTROLS (MOBILE & TABLET) -->
+        <div id="controls">
+            <div class="control-group steer-group">
+                <div id="left" class="btn btn-round">◀</div>
+                <div id="right" class="btn btn-round">▶</div>
+            </div>
+            <div class="control-group pedal-group">
+                <div id="siren-touch-btn" class="btn small-btn siren-pill" style="display: none;">🚨</div>
+                <div id="hand" class="btn small-btn">HB</div>
+                <div id="brake" class="btn btn-pedal pedal-brake">BRK</div>
+                <div id="gas" class="btn btn-pedal gas-accent">GAS</div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="main.js"></script>
+</body>
+</html>

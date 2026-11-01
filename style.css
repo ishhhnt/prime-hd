@@ -1,0 +1,3350 @@
+/* ═══════════════════════════════════════════════════════════════
+   PRIME HORIZON - MODERN AAA RACING GAME UI
+   Inspired by Forza Horizon 5, NFS Unbound & CarX Street.
+   Glassmorphism, Cyber Cyan & Electric Amber micro-accents,
+   smooth rounded cards, digital tachometer, and responsive controls.
+   ═══════════════════════════════════════════════════════════════ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+    background: #07090e;
+    font-family: 'Rajdhani', 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+}
+
+/* ─── MODERN MINIMAL LOADING SCREEN ─── */
+#loading-screen {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, #0f1524 0%, #06080e 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+
+.minimal-loader {
+    width: 84%;
+    max-width: 440px;
+    background: rgba(14, 18, 28, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    padding: 28px 32px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+}
+
+.loader-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 14px;
+}
+
+.loader-brand {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.loader-brand span {
+    color: #00e5ff;
+    font-weight: 800;
+    margin-left: 4px;
+}
+
+#loading-percentage {
+    font-size: 1.6rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #00e5ff;
+    font-variant-numeric: tabular-nums;
+}
+
+.loader-track {
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+#loading-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #00e5ff, #0077ff);
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.8);
+    transition: width 0.2s ease-out;
+    border-radius: 4px;
+}
+
+.loader-bottom {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 14px;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    color: #8c96ac;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.loader-author {
+    color: #cfd6e6;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LOBBY SCREEN — MODERN AAA RACING SHOWROOM
+   ═══════════════════════════════════════════════════════════════ */
+#lobby-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 500;
+    display: none;
+    flex-direction: column;
+    padding: 18px 32px 20px;
+    background: linear-gradient(90deg, rgba(8, 11, 18, 0.94) 0%, rgba(8, 11, 18, 0.72) 32%, rgba(8, 11, 18, 0.05) 50%, rgba(8, 11, 18, 0.72) 68%, rgba(8, 11, 18, 0.94) 100%);
+    pointer-events: none;
+}
+
+/* ─── TOP STATUS BAR ─── */
+.lobby-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    pointer-events: auto;
+    padding-bottom: 12px;
+}
+
+.lobby-brand {
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.lobby-brand .brand-accent {
+    color: #00e5ff;
+    font-weight: 700;
+    text-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
+}
+
+.lobby-top-pills {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.status-pill {
+    padding: 6px 14px;
+    background: rgba(16, 22, 34, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    backdrop-filter: blur(14px);
+}
+
+.pill-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #00e5ff;
+    box-shadow: 0 0 8px #00e5ff;
+}
+
+.cash-pill {
+    color: #2ecc71;
+    border-color: rgba(46, 204, 113, 0.35);
+}
+
+.cash-sym {
+    color: #27ae60;
+    font-size: 0.7rem;
+}
+
+.settings-trigger-btn {
+    padding: 8px 18px;
+    background: rgba(16, 22, 34, 0.75);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(14px);
+}
+
+.settings-trigger-btn:hover {
+    background: #ffffff;
+    color: #000000;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    transform: translateY(-1px);
+}
+
+/* ─── LOBBY BODY: 3 DISTINCT SECTIONS ─── */
+.lobby-body {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 22px;
+    min-height: 0;
+    margin: 12px 0;
+}
+
+.lobby-panel {
+    pointer-events: auto;
+    background: rgba(12, 16, 26, 0.78);
+    backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+}
+
+.lobby-panel:hover {
+    border-color: rgba(0, 229, 255, 0.3);
+}
+
+.panel-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 18px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.panel-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    background: #00e5ff;
+    color: #000000;
+    border-radius: 4px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.panel-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+/* ─── 1. GARAGE SECTION (LEFT SIDE) ─── */
+.garage-panel {
+    width: 330px;
+    max-width: 34vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.car-switcher {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 12px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.2) transparent;
+}
+
+.car-slot {
+    padding: 12px 14px;
+    background: rgba(18, 24, 38, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.car-slot:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateX(4px);
+}
+
+.car-slot.selected {
+    background: linear-gradient(135deg, rgba(0, 229, 255, 0.2) 0%, rgba(0, 119, 255, 0.08) 100%);
+    border: 1px solid #00e5ff;
+    box-shadow: 0 4px 20px rgba(0, 229, 255, 0.25);
+}
+
+.slot-badge {
+    display: inline-block;
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    padding: 2px 7px;
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+
+.badge-s1 { background: #e74c3c; color: #ffffff; }
+.badge-s2 { background: #9b59b6; color: #ffffff; }
+.badge-a  { background: #e67e22; color: #ffffff; }
+.badge-b  { background: #3498db; color: #ffffff; }
+
+.slot-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 1.5px;
+    color: #ffffff;
+}
+
+.slot-sub {
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    color: #8c96ac;
+    margin-top: 2px;
+}
+
+.car-slot.selected .slot-sub {
+    color: #00e5ff;
+}
+
+/* ─── 2. CAR PREVIEW (CENTER) ─── */
+.lobby-center-preview {
+    flex: 1;
+    min-width: 150px;
+    pointer-events: none;
+    /* Clean transparent area for 3D car showroom */
+}
+
+/* ─── 3. RIGHT SIDE: DISTRICT + MODES + TELEMETRY ─── */
+.lobby-right-column {
+    width: 370px;
+    max-width: 38vw;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.2) transparent;
+}
+
+/* District / Map Section */
+.district-grid {
+    display: flex;
+    gap: 6px;
+    padding: 10px 12px;
+}
+
+.district-btn {
+    flex: 1;
+    padding: 10px 6px;
+    background: rgba(18, 24, 38, 0.6);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    font-family: inherit;
+    transition: all 0.2s ease;
+}
+
+.district-btn .d-tag {
+    font-size: 0.62rem;
+    color: #8c96ac;
+    font-weight: 700;
+}
+
+.district-btn .highlight-tag {
+    color: #00e5ff;
+}
+
+.district-btn .d-name {
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-align: center;
+}
+
+.district-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.district-btn.active {
+    background: linear-gradient(135deg, rgba(0, 229, 255, 0.25) 0%, rgba(0, 119, 255, 0.1) 100%);
+    border-color: #00e5ff;
+    box-shadow: 0 2px 14px rgba(0, 229, 255, 0.25);
+}
+
+.district-btn.active .d-tag {
+    color: #00e5ff;
+}
+
+.city-status-badge {
+    padding: 0 14px 10px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #00e5ff;
+    text-transform: uppercase;
+}
+
+/* Mode Section */
+.mode-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px 12px;
+    max-height: 175px;
+    overflow-y: auto;
+}
+
+.mode-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 8px 12px;
+    background: rgba(18, 24, 38, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    color: #ffffff;
+    font-family: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.mode-row .mr-icon {
+    font-size: 1.1rem;
+    width: 22px;
+    text-align: center;
+}
+
+.mode-row b {
+    display: block;
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+}
+
+.mode-row small {
+    display: block;
+    font-size: 0.68rem;
+    color: #8c96ac;
+    letter-spacing: 0.5px;
+}
+
+.mode-row:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.mode-row.active {
+    background: linear-gradient(135deg, rgba(0, 229, 255, 0.2) 0%, rgba(0, 119, 255, 0.08) 100%);
+    border-color: #00e5ff;
+    box-shadow: 0 2px 12px rgba(0, 229, 255, 0.2);
+}
+
+.mode-row.active small {
+    color: #d0e4ff;
+}
+
+/* Telemetry Card */
+.info-panel {
+    padding: 14px 18px;
+}
+
+.telemetry-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.car-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    padding: 2px 8px;
+    background: #00e5ff;
+    color: #000000;
+    border-radius: 4px;
+}
+
+.car-tag {
+    font-size: 0.68rem;
+    letter-spacing: 2px;
+    color: #8c96ac;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.info-panel h1 {
+    font-size: 1.45rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin: 3px 0 1px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.car-sub {
+    font-size: 0.72rem;
+    color: #8c96ac;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.info-panel h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin: 2px 0 4px;
+    color: #ffffff;
+}
+
+.info-panel p {
+    font-size: 0.75rem;
+    line-height: 1.4;
+    color: #b0b8cc;
+}
+
+.info-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 10px 0;
+}
+
+.car-specs {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.spec-head {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.68rem;
+    letter-spacing: 1.5px;
+    color: #8c96ac;
+    font-weight: 700;
+}
+
+.spec-head b {
+    color: #ffffff;
+}
+
+.spec-bar {
+    height: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    margin-top: 3px;
+    overflow: hidden;
+}
+
+.spec-bar div {
+    height: 100%;
+    background: linear-gradient(90deg, #00e5ff, #0077ff);
+    border-radius: 3px;
+    box-shadow: 0 0 8px rgba(0, 229, 255, 0.5);
+    transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ─── LOBBY BOTTOM CTA BAR ─── */
+.lobby-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    pointer-events: auto;
+    padding-top: 8px;
+}
+
+.lobby-hint {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.hint-pill {
+    padding: 5px 10px;
+    background: rgba(16, 22, 34, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #8c96ac;
+    letter-spacing: 1px;
+}
+
+.hint-pill kbd {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    padding: 1px 5px;
+    border-radius: 3px;
+    margin-right: 4px;
+    font-family: inherit;
+    font-weight: 700;
+}
+
+.drive-btn {
+    padding: 14px 42px;
+    background: linear-gradient(135deg, #00e5ff 0%, #0066ff 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Montserrat', inherit;
+    font-weight: 800;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 6px 24px rgba(0, 229, 255, 0.45);
+}
+
+.drive-btn:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 30px rgba(0, 229, 255, 0.65);
+    filter: brightness(1.1);
+}
+
+.drive-btn:active {
+    transform: scale(0.97);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MODERN AAA IN-GAME HUD
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── 1. MODERN GPS RADAR (TOP-LEFT) ─── */
+.modern-radar-pod {
+    position: absolute;
+    left: 24px;
+    top: 24px;
+    width: 220px;
+    z-index: 20;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.6));
+}
+
+.radar-header {
+    background: rgba(12, 16, 26, 0.9);
+    backdrop-filter: blur(16px);
+    padding: 6px 10px;
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.gps-icon {
+    font-size: 0.8rem;
+}
+
+#radar-district {
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+.radar-frame {
+    width: 100%;
+    height: 145px;
+    background: rgba(10, 14, 22, 0.92);
+    border-left: 1.5px solid rgba(255, 255, 255, 0.2);
+    border-right: 1.5px solid rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+    position: relative;
+}
+
+#minimap {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.radar-meters {
+    display: flex;
+    width: 100%;
+    height: 8px;
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.85);
+}
+
+.radar-meter-track {
+    flex: 1;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.65);
+}
+
+.health-track {
+    border-right: 1.5px solid #000000;
+}
+
+.radar-meter-fill {
+    height: 100%;
+    transition: width 0.15s ease-out;
+}
+
+.health-fill {
+    background: #2ecc71;
+    box-shadow: 0 0 8px rgba(46, 204, 113, 0.7);
+}
+
+.armor-fill {
+    background: #00a8ff;
+    box-shadow: 0 0 8px rgba(0, 168, 255, 0.7);
+}
+
+/* ─── 2. MODERN DIGITAL RACING TACHOMETER (BOTTOM-RIGHT) ─── */
+.modern-speedo-pod {
+    position: absolute;
+    right: 28px;
+    bottom: 28px;
+    width: 180px;
+    height: 180px;
+    z-index: 20;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.7));
+}
+
+#speedo-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.speedo-center {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#speed {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 0.9;
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    font-variant-numeric: tabular-nums;
+    text-shadow: 0 4px 20px rgba(0, 229, 255, 0.4);
+}
+
+.speed-unit {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #00e5ff;
+    margin-top: 2px;
+}
+
+.gear-badge {
+    display: inline-block;
+    margin-top: 4px;
+    padding: 2px 10px;
+    background: rgba(0, 229, 255, 0.15);
+    border: 1px solid rgba(0, 229, 255, 0.4);
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
+}
+
+/* ─── TOP RIGHT MENU (FLOATING FROSTED PILLS) ─── */
+.modern-top-menu {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-end;
+    z-index: 20;
+}
+
+.ui-btn {
+    padding: 9px 18px;
+    background: rgba(16, 22, 34, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    color: #ffffff;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    backdrop-filter: blur(14px);
+    transition: all 0.15s ease;
+}
+
+.ui-btn:hover {
+    background: #00e5ff;
+    color: #000000;
+    border-color: #00e5ff;
+    box-shadow: 0 0 16px rgba(0, 229, 255, 0.5);
+    transform: translateY(-1px);
+}
+
+.ui-btn:active {
+    transform: scale(0.96);
+}
+
+.gear-btns {
+    display: flex;
+    gap: 6px;
+}
+
+.gear-btns .ui-btn {
+    padding: 8px 14px;
+}
+
+.siren-btn {
+    background: rgba(41, 128, 185, 0.7);
+    border-color: #3498db;
+}
+
+.siren-btn.active {
+    background: #e74c3c;
+    border-color: #e74c3c;
+    animation: sirenGlow 0.35s infinite alternate;
+}
+
+@keyframes sirenGlow {
+    from { box-shadow: 0 0 10px #3498db; }
+    to { box-shadow: 0 0 20px #e74c3c; }
+}
+
+/* ─── EVENT OBJECTIVE BANNER ─── */
+.modern-event-hud {
+    position: absolute;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(12, 16, 26, 0.85);
+    border: 1px solid rgba(0, 229, 255, 0.3);
+    border-radius: 14px;
+    padding: 10px 28px;
+    text-align: center;
+    backdrop-filter: blur(18px);
+    z-index: 20;
+    min-width: 280px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+}
+
+.event-type-badge {
+    font-size: 0.7rem;
+    color: #00e5ff;
+    letter-spacing: 2px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.event-desc {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-top: 2px;
+}
+
+.event-sub {
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    color: #ffb703;
+    margin-top: 3px;
+    font-weight: 600;
+}
+
+#center-msg {
+    position: absolute;
+    top: 30%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 800;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 4px;
+    text-shadow: 0 6px 30px rgba(0, 0, 0, 0.9);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+    z-index: 25;
+}
+
+#result-panel {
+    position: absolute;
+    inset: 0;
+    background: rgba(6, 8, 14, 0.82);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    backdrop-filter: blur(16px);
+}
+
+.modern-result-card {
+    background: rgba(14, 18, 30, 0.95);
+    border: 1px solid rgba(0, 229, 255, 0.35);
+    border-radius: 20px;
+    padding: 32px 42px;
+    min-width: 340px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 229, 255, 0.2);
+}
+
+#result-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 2px;
+    color: #ffffff;
+    margin-bottom: 14px;
+}
+
+#result-body {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #cdd5e8;
+    margin-bottom: 24px;
+}
+
+.result-btns {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE ON-SCREEN TOUCH CONTROLS (MOBILE & TABLET)
+   ═══════════════════════════════════════════════════════════════ */
+#controls {
+    position: absolute;
+    bottom: 24px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 24px;
+    pointer-events: none;
+    z-index: 20;
+}
+
+.control-group {
+    display: flex;
+    gap: 12px;
+}
+
+.btn {
+    width: 72px;
+    height: 72px;
+    background: rgba(16, 22, 34, 0.75);
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    pointer-events: auto;
+    font-weight: 700;
+    font-size: 1.4rem;
+    backdrop-filter: blur(14px);
+    transition: all 0.1s ease;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.btn-round {
+    border-radius: 50%;
+}
+
+.btn:active {
+    background: #00e5ff;
+    color: #000000;
+    border-color: #00e5ff;
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.6);
+    transform: scale(0.94);
+}
+
+.btn-pedal {
+    width: 68px;
+    height: 98px;
+    font-size: 0.92rem;
+    letter-spacing: 1.5px;
+    align-self: flex-end;
+}
+
+.pedal-brake {
+    background: rgba(231, 76, 60, 0.35);
+    border-color: rgba(231, 76, 60, 0.65);
+}
+
+.pedal-brake:active {
+    background: #e74c3c;
+    color: #ffffff;
+    box-shadow: 0 0 20px rgba(231, 76, 60, 0.6);
+}
+
+.gas-accent {
+    border-color: rgba(0, 229, 255, 0.4);
+}
+
+.gas-accent:active {
+    background: #00e5ff;
+    color: #000000;
+}
+
+.btn.small-btn {
+    width: 52px;
+    height: 52px;
+    font-size: 0.75rem;
+    align-self: flex-end;
+}
+
+.btn.latched {
+    background: #00e5ff;
+    color: #000000;
+}
+
+.siren-pill {
+    background: rgba(41, 128, 185, 0.5);
+    border-color: #3498db;
+    font-size: 1.1rem;
+}
+
+.siren-pill.active {
+    background: #e74c3c;
+    border-color: #e74c3c;
+    animation: sirenGlow 0.35s infinite alternate;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MODERN AAA SETTINGS MODAL
+   ═══════════════════════════════════════════════════════════════ */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 7, 12, 0.85);
+    backdrop-filter: blur(20px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+}
+
+.modern-settings-card {
+    background: rgba(14, 18, 30, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 26px 32px;
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.8), 0 0 35px rgba(0, 229, 255, 0.15);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.2) transparent;
+}
+
+.settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    padding-bottom: 14px;
+    margin-bottom: 18px;
+}
+
+.settings-header h2 {
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.settings-subtitle {
+    font-size: 0.72rem;
+    letter-spacing: 1.5px;
+    color: #8c96ac;
+    font-weight: 600;
+    display: block;
+    margin-top: 2px;
+}
+
+.close-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: all 0.15s;
+}
+
+.close-btn:hover {
+    background: #e74c3c;
+    border-color: #e74c3c;
+}
+
+/* Modern Tabs */
+.tab-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    background: rgba(18, 24, 38, 0.6);
+    padding: 4px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 10px 8px;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    color: #8c96ac;
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tab-btn.active {
+    background: #00e5ff;
+    color: #000000;
+    box-shadow: 0 2px 14px rgba(0, 229, 255, 0.35);
+}
+
+.tab-panel[hidden] {
+    display: none;
+}
+
+/* Modern Setting Rows */
+.setting-row {
+    background: rgba(18, 24, 38, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: all 0.15s ease;
+}
+
+.setting-row:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(0, 229, 255, 0.25);
+}
+
+.setting-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.setting-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #ffffff;
+}
+
+.setting-val {
+    font-size: 0.8rem;
+    color: #00e5ff;
+    font-weight: 700;
+}
+
+.setting-desc {
+    font-size: 0.72rem;
+    color: #8c96ac;
+    letter-spacing: 0.5px;
+}
+
+/* Modern Sliders */
+input[type="range"] {
+    width: 100%;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 3px;
+    accent-color: #00e5ff;
+    cursor: pointer;
+}
+
+/* Modern Toggles */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 24px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-switch .slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: 0.25s;
+}
+
+.toggle-switch .slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 3px;
+    bottom: 3px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    transition: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.toggle-switch input:checked + .slider {
+    background-color: #00e5ff;
+    border-color: #00e5ff;
+    box-shadow: 0 0 12px rgba(0, 229, 255, 0.5);
+}
+
+.toggle-switch input:checked + .slider:before {
+    transform: translateX(24px);
+    background-color: #000000;
+}
+
+/* Button Grids */
+.opt-row, .quality-btn-group {
+    display: flex;
+    gap: 8px;
+}
+
+.opt-chip, .q-btn {
+    flex: 1;
+    padding: 8px 12px;
+    background: rgba(18, 24, 38, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    color: #cdd5e8;
+    font-family: inherit;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.15s ease;
+}
+
+.opt-chip:hover, .q-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.opt-chip.active, .q-btn.active {
+    background: #00e5ff;
+    color: #000000;
+    border-color: #00e5ff;
+    box-shadow: 0 0 12px rgba(0, 229, 255, 0.35);
+}
+
+.apply-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #00e5ff 0%, #0077ff 100%);
+    border: none;
+    border-radius: 12px;
+    color: #ffffff;
+    font-family: 'Montserrat', inherit;
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+    cursor: pointer;
+    margin-top: 18px;
+    transition: all 0.2s ease;
+    box-shadow: 0 6px 25px rgba(0, 229, 255, 0.4);
+}
+
+.apply-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 229, 255, 0.6);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE DESIGN (PC VS MOBILE & TABLET BREAKPOINTS)
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 960px) {
+    #lobby-screen {
+        padding: 12px 14px 0 14px;
+        overflow: hidden;
+    }
+
+    .lobby-top {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 6px;
+    }
+
+    .lobby-brand {
+        font-size: 1.35rem;
+        letter-spacing: 2px;
+    }
+
+    .lobby-top-pills {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
+    }
+
+    .status-pill {
+        padding: 4px 10px;
+        font-size: 0.72rem;
+    }
+
+    .settings-trigger-btn {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+    }
+
+    .lobby-body {
+        flex-direction: column;
+        gap: 14px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        max-height: calc(100vh - 120px);
+        padding-bottom: 85px; /* Clear fixed bottom button */
+        scrollbar-width: thin;
+        scrollbar-color: rgba(0, 229, 255, 0.4) transparent;
+    }
+
+    .garage-panel, .lobby-right-column {
+        width: 100%;
+        max-width: none;
+    }
+
+    .car-switcher {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+
+    .lobby-center-preview {
+        display: none;
+    }
+
+    .lobby-hint {
+        display: none;
+    }
+
+    /* Fixed Bottom Action Deck */
+    .lobby-bottom {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        padding: 10px 16px env(safe-area-inset-bottom, 12px);
+        background: linear-gradient(180deg, transparent 0%, rgba(6, 8, 14, 0.94) 40%, #06080e 100%);
+        z-index: 105;
+        display: flex;
+        justify-content: center;
+        pointer-events: auto;
+    }
+
+    .drive-btn {
+        width: 100%;
+        max-width: 500px;
+        padding: 14px 20px;
+        font-size: 1.05rem;
+        border-radius: 12px;
+    }
+
+    /* In-Game HUD: Compact Mobile Minimap */
+    .modern-radar-pod {
+        position: fixed;
+        left: 10px;
+        top: 10px;
+        width: 35vw;
+        max-width: 155px;
+        z-index: 50;
+    }
+
+    .radar-frame {
+        height: 22vw;
+        max-height: 95px;
+    }
+
+    .radar-frame canvas {
+        width: 100%;
+        height: 100%;
+    }
+
+    .radar-header {
+        font-size: 0.65rem;
+        padding: 3px 6px;
+    }
+
+    /* In-Game HUD: Vertical Compact Menu Stack on Right */
+    #top-right-ui {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        align-items: flex-end;
+        z-index: 50;
+        pointer-events: auto;
+    }
+
+    #top-right-ui .ui-btn {
+        padding: 5px 10px;
+        font-size: 0.70rem;
+        letter-spacing: 0.5px;
+        background: rgba(14, 18, 28, 0.78);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 8px;
+    }
+
+    .gear-btns {
+        display: flex;
+        gap: 4px;
+    }
+
+    .gear-btns .ui-btn {
+        width: 28px;
+        height: 28px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* In-Game HUD: Scaled Digital Tachometer */
+    .modern-speedo-pod {
+        position: fixed;
+        right: 12px;
+        bottom: 12px;
+        width: 125px;
+        height: 125px;
+        z-index: 40;
+    }
+
+    #speedo-canvas {
+        width: 125px;
+        height: 125px;
+    }
+
+    #speed {
+        font-size: 2.2rem;
+    }
+
+    .speed-unit {
+        font-size: 0.6rem;
+    }
+
+    .gear-badge {
+        font-size: 0.75rem;
+    }
+
+    /* On-Screen Touch Controls Fixed at Bottom Corners */
+    #controls {
+        position: fixed;
+        bottom: 12px;
+        left: 0;
+        right: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        padding: 0 14px env(safe-area-inset-bottom, 12px);
+        pointer-events: none;
+        z-index: 60;
+        touch-action: none;
+    }
+
+    .control-group {
+        display: flex;
+        gap: 10px;
+        pointer-events: auto;
+        align-items: flex-end;
+    }
+
+    .steer-group .btn {
+        width: 58px;
+        height: 58px;
+        font-size: 1.3rem;
+        border-radius: 14px;
+    }
+
+    .pedal-group .btn-pedal {
+        width: 54px;
+        height: 78px;
+        font-size: 0.88rem;
+        border-radius: 12px;
+    }
+
+    .pedal-group .small-btn {
+        width: 44px;
+        height: 44px;
+        font-size: 0.75rem;
+        border-radius: 10px;
+    }
+
+    .modern-settings-card {
+        width: 94%;
+        max-height: 88vh;
+        padding: 16px;
+    }
+}
+
+@media (max-width: 580px) {
+    .car-switcher {
+        grid-template-columns: 1fr;
+    }
+
+    .modern-radar-pod {
+        width: 36vw;
+        max-width: 135px;
+    }
+
+    .radar-frame {
+        height: 80px;
+    }
+
+    .modern-speedo-pod {
+        width: 105px;
+        height: 105px;
+    }
+
+    #speedo-canvas {
+        width: 105px;
+        height: 105px;
+    }
+
+    #speed {
+        font-size: 1.85rem;
+    }
+
+    .steer-group .btn {
+        width: 52px;
+        height: 52px;
+        font-size: 1.2rem;
+    }
+
+    .pedal-group .btn-pedal {
+        width: 48px;
+        height: 72px;
+        font-size: 0.8rem;
+    }
+
+    .pedal-group .small-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 0.7rem;
+    }
+}
+
+/* ─── POLISHED SHOWROOM, HUD AND ORIENTATION-AWARE MOBILE LAYOUT ─── */
+:root {
+    --glass: rgba(10, 15, 23, 0.72);
+    --glass-border: rgba(255, 255, 255, 0.14);
+    --accent: #73e5ed;
+}
+
+#game-canvas {
+    position: fixed;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.lobby-panel,
+.modern-settings-card,
+.modern-result-card {
+    background: rgba(10, 15, 23, 0.76);
+    border-color: var(--glass-border);
+    border-radius: 14px;
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.32);
+    backdrop-filter: blur(20px) saturate(140%);
+}
+
+#lobby-screen {
+    padding: clamp(12px, 2.2vw, 28px);
+    background:
+        radial-gradient(ellipse at 50% 48%, rgba(12, 19, 28, 0.12), rgba(6, 9, 14, 0.52) 65%),
+        linear-gradient(90deg, rgba(6, 9, 14, 0.8), transparent 50%, rgba(6, 9, 14, 0.8));
+}
+
+.lobby-body {
+    gap: clamp(10px, 1.5vw, 20px);
+}
+
+.garage-panel {
+    width: clamp(250px, 24vw, 310px);
+    max-width: 30vw;
+}
+
+.lobby-right-column {
+    width: clamp(280px, 28vw, 350px);
+    max-width: 32vw;
+}
+
+.lobby-center-preview {
+    position: relative;
+    display: block;
+    min-width: 120px;
+    overflow: hidden;
+    filter: drop-shadow(0 26px 26px rgba(0, 0, 0, 0.42));
+}
+
+#lobby-car-preview {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.car-slot,
+.mode-row,
+.district-btn,
+.ui-btn,
+.settings-trigger-btn {
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.car-slot.selected,
+.district-btn.active,
+.mode-row.active {
+    border-color: rgba(115, 229, 237, 0.72);
+    box-shadow: inset 0 0 0 1px rgba(115, 229, 237, 0.1);
+}
+
+.panel-badge,
+.car-badge,
+.tab-btn.active,
+.opt-chip.active,
+.q-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: none;
+}
+
+.lobby-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.drive-btn {
+    border-radius: 10px;
+    background: linear-gradient(120deg, #71e2e9, #399cb7);
+    box-shadow: 0 8px 22px rgba(50, 180, 196, 0.22);
+}
+
+#game-hud {
+    position: fixed;
+    inset: 0;
+    z-index: 600;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.modern-radar-pod,
+.modern-speedo-pod,
+.modern-top-menu,
+.modern-event-hud {
+    filter: none;
+}
+
+.modern-top-menu,
+#result-panel {
+    pointer-events: auto;
+}
+
+.radar-header,
+.radar-frame,
+.radar-meters,
+.modern-speedo-pod,
+.modern-top-menu .ui-btn,
+.modern-event-hud,
+.btn {
+    background-color: var(--glass);
+    border-color: var(--glass-border);
+    backdrop-filter: blur(16px) saturate(135%);
+}
+
+.modern-speedo-pod {
+    right: max(24px, env(safe-area-inset-right));
+    bottom: max(22px, env(safe-area-inset-bottom));
+    border: 1px solid var(--glass-border);
+    border-radius: 50%;
+}
+
+.modern-radar-pod {
+    left: max(20px, env(safe-area-inset-left));
+    top: max(20px, env(safe-area-inset-top));
+    width: 216px;
+}
+
+.modern-top-menu {
+    right: max(20px, env(safe-area-inset-right));
+    top: max(20px, env(safe-area-inset-top));
+}
+
+.ui-btn {
+    border-radius: 9px;
+}
+
+#controls {
+    bottom: max(18px, env(safe-area-inset-bottom));
+    padding-left: max(20px, env(safe-area-inset-left));
+    padding-right: max(20px, env(safe-area-inset-right));
+}
+
+.btn {
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+}
+
+.btn-pedal {
+    height: 84px;
+}
+
+.modal-overlay {
+    padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right))
+        max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+}
+
+.modern-settings-card {
+    max-height: min(90vh, 760px);
+}
+
+@media (max-width: 960px) and (orientation: portrait) {
+    #lobby-screen {
+        padding: max(10px, env(safe-area-inset-top)) 12px 0;
+    }
+
+    .lobby-top {
+        flex-wrap: nowrap;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .lobby-brand {
+        font-size: clamp(0.95rem, 4vw, 1.25rem);
+        line-height: 1.25;
+    }
+
+    .lobby-top-pills {
+        justify-content: flex-end;
+        gap: 5px;
+    }
+
+    .rank-pill {
+        display: none;
+    }
+
+    .cash-pill {
+        padding: 5px 8px;
+        font-size: 0.65rem;
+    }
+
+    .settings-trigger-btn {
+        padding: 6px 9px;
+        font-size: 0.65rem;
+    }
+
+    .lobby-body {
+        flex: 1;
+        min-height: 0;
+        max-height: none;
+        margin: 6px 0 0;
+        padding: 0 0 94px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        gap: 10px;
+    }
+
+    .garage-panel,
+    .lobby-right-column {
+        width: 100%;
+        max-width: none;
+        flex: none;
+        overflow: visible;
+    }
+
+    .car-switcher {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        max-height: none;
+        overflow: visible;
+        gap: 6px;
+        padding: 8px;
+    }
+
+    .car-slot {
+        min-width: 0;
+        padding: 9px;
+    }
+
+    .slot-name {
+        font-size: 0.78rem;
+        letter-spacing: 0.7px;
+    }
+
+    .slot-sub {
+        font-size: 0.6rem;
+        line-height: 1.25;
+    }
+
+    .lobby-center-preview {
+        order: 2;
+        flex: none;
+        width: 100%;
+        height: clamp(150px, 26vh, 230px);
+        min-height: 140px;
+    }
+
+    .lobby-right-column {
+        order: 3;
+        gap: 8px;
+    }
+
+    .lobby-bottom {
+        position: fixed;
+        inset: auto 0 0;
+        padding: 10px 12px max(10px, env(safe-area-inset-bottom));
+        background: linear-gradient(180deg, transparent, rgba(6, 9, 14, 0.96) 32%);
+        z-index: 105;
+    }
+
+    .lobby-bottom .drive-btn {
+        max-width: none;
+        padding: 12px 18px;
+    }
+
+    .modern-radar-pod {
+        position: fixed;
+        left: max(10px, env(safe-area-inset-left));
+        top: max(10px, env(safe-area-inset-top));
+        width: clamp(112px, 34vw, 150px);
+    }
+
+    .radar-header {
+        padding: 4px 7px;
+    }
+
+    #radar-district {
+        overflow: hidden;
+        font-size: 0.62rem;
+        letter-spacing: 0.8px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .radar-frame {
+        height: clamp(68px, 20vw, 88px);
+    }
+
+    #top-right-ui {
+        position: fixed;
+        top: max(10px, env(safe-area-inset-top));
+        right: max(10px, env(safe-area-inset-right));
+        display: grid;
+        max-width: calc(100vw - 145px);
+        grid-template-columns: repeat(2, max-content);
+        justify-content: end;
+        gap: 4px;
+    }
+
+    #top-right-ui .ui-btn {
+        padding: 6px 8px;
+        border-radius: 8px;
+        font-size: 0.62rem;
+        letter-spacing: 0.3px;
+    }
+
+    .gear-btns {
+        gap: 4px;
+    }
+
+    .gear-btns .ui-btn {
+        min-width: 30px;
+        min-height: 29px;
+        padding: 0;
+    }
+
+    .modern-speedo-pod {
+        position: fixed;
+        right: max(14px, env(safe-area-inset-right));
+        bottom: calc(104px + env(safe-area-inset-bottom));
+        width: clamp(82px, 24vw, 108px);
+        height: clamp(82px, 24vw, 108px);
+    }
+
+    #speed {
+        font-size: clamp(1.55rem, 7vw, 2rem);
+    }
+
+    .speed-unit {
+        font-size: 0.55rem;
+    }
+
+    #controls {
+        position: fixed;
+        bottom: max(10px, env(safe-area-inset-bottom));
+        padding: 0;
+        padding-left: max(12px, env(safe-area-inset-left));
+        padding-right: max(12px, env(safe-area-inset-right));
+        align-items: flex-end;
+    }
+
+    .control-group {
+        gap: clamp(5px, 2vw, 10px);
+    }
+
+    .steer-group .btn {
+        width: clamp(46px, 14vw, 58px);
+        height: clamp(46px, 14vw, 58px);
+        border-radius: 50%;
+    }
+
+    .pedal-group .btn-pedal {
+        width: clamp(42px, 13vw, 52px);
+        height: clamp(64px, 20vw, 78px);
+    }
+
+    .pedal-group .small-btn {
+        width: clamp(34px, 10vw, 42px);
+        height: clamp(34px, 10vw, 42px);
+    }
+
+    .modern-event-hud {
+        top: auto;
+        bottom: 24%;
+        min-width: min(220px, 58vw);
+        padding: 8px 12px;
+    }
+
+    .modern-settings-card {
+        width: 100%;
+        max-height: calc(100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+        padding: 14px;
+    }
+}
+
+@media (max-width: 960px) and (orientation: landscape) {
+    #lobby-screen {
+        padding: max(6px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right))
+            0 max(10px, env(safe-area-inset-left));
+    }
+
+    .lobby-top {
+        flex: none;
+        min-height: 34px;
+        padding-bottom: 2px;
+    }
+
+    .lobby-brand {
+        font-size: 1rem;
+    }
+
+    .lobby-top-pills {
+        gap: 5px;
+    }
+
+    .lobby-body {
+        flex: 1;
+        min-height: 0;
+        max-height: none;
+        flex-direction: row;
+        align-items: stretch;
+        overflow: hidden;
+        margin: 4px 0;
+        padding: 0 0 46px;
+        gap: 8px;
+    }
+
+    .garage-panel {
+        order: 1;
+        flex: 0 0 29%;
+        width: auto;
+        max-width: 29%;
+        min-width: 190px;
+        min-height: 0;
+    }
+
+    .car-switcher {
+        display: flex;
+        min-height: 0;
+        max-height: none;
+        overflow-y: auto;
+        padding: 6px;
+        gap: 4px;
+    }
+
+    .car-slot {
+        padding: 6px 8px;
+    }
+
+    .slot-badge {
+        margin-bottom: 2px;
+    }
+
+    .slot-sub {
+        display: none;
+    }
+
+    .lobby-center-preview {
+        order: 2;
+        flex: 1 1 38%;
+        width: auto;
+        min-width: 100px;
+        height: auto;
+    }
+
+    .lobby-right-column {
+        order: 3;
+        flex: 0 0 30%;
+        width: auto;
+        max-width: 30%;
+        min-width: 200px;
+        min-height: 0;
+        overflow-y: auto;
+        gap: 6px;
+    }
+
+    .panel-header {
+        padding: 6px 8px;
+    }
+
+    .panel-title {
+        font-size: 0.68rem;
+    }
+
+    .district-grid {
+        padding: 5px 7px;
+    }
+
+    .district-btn {
+        padding: 5px 3px;
+    }
+
+    .district-btn .d-name {
+        font-size: 0.62rem;
+    }
+
+    .city-status-badge {
+        padding: 0 8px 5px;
+        font-size: 0.58rem;
+    }
+
+    .mode-list {
+        max-height: 92px;
+        padding: 4px 6px;
+        gap: 3px;
+    }
+
+    .mode-row {
+        padding: 4px 6px;
+        gap: 6px;
+    }
+
+    .mode-row small {
+        display: none;
+    }
+
+    .info-panel {
+        padding: 7px 9px;
+    }
+
+    .car-specs {
+        display: none;
+    }
+
+    .info-divider,
+    .car-tag,
+    .info-panel h2,
+    .info-panel p {
+        display: none;
+    }
+
+    .lobby-bottom {
+        position: fixed;
+        inset: auto 0 0;
+        justify-content: flex-end;
+        padding: 4px max(10px, env(safe-area-inset-right)) max(5px, env(safe-area-inset-bottom));
+        background: linear-gradient(180deg, transparent, rgba(6, 9, 14, 0.96));
+        z-index: 105;
+    }
+
+    .lobby-hint {
+        display: none;
+    }
+
+    .lobby-bottom .drive-btn {
+        width: auto;
+        padding: 8px 22px;
+        font-size: 0.8rem;
+    }
+
+    .modern-radar-pod {
+        left: max(10px, env(safe-area-inset-left));
+        top: max(10px, env(safe-area-inset-top));
+        width: clamp(105px, 19vw, 145px);
+    }
+
+    .radar-frame {
+        height: clamp(55px, 15vh, 78px);
+    }
+
+    #top-right-ui {
+        top: max(10px, env(safe-area-inset-top));
+        right: max(10px, env(safe-area-inset-right));
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        max-width: calc(100vw - 150px);
+        gap: 4px;
+    }
+
+    #top-right-ui .ui-btn {
+        padding: 5px 7px;
+        font-size: 0.6rem;
+        letter-spacing: 0.2px;
+    }
+
+    .modern-speedo-pod {
+        right: max(12px, env(safe-area-inset-right));
+        bottom: calc(76px + env(safe-area-inset-bottom));
+        width: 86px;
+        height: 86px;
+    }
+
+    #speed {
+        font-size: 1.65rem;
+    }
+
+    #controls {
+        bottom: max(8px, env(safe-area-inset-bottom));
+        padding: 0;
+        padding-left: max(10px, env(safe-area-inset-left));
+        padding-right: max(10px, env(safe-area-inset-right));
+    }
+
+    .steer-group .btn {
+        width: 46px;
+        height: 46px;
+    }
+
+    .pedal-group .btn-pedal {
+        width: 44px;
+        height: 58px;
+    }
+
+    .pedal-group .small-btn {
+        width: 34px;
+        height: 34px;
+    }
+}
+
+/* Compact glass UI overrides */
+:root {
+    --glass: rgba(15, 20, 29, 0.62);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --accent: #73e5ed;
+}
+
+*,
+*::before,
+*::after,
+button,
+input {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+body {
+    letter-spacing: 0;
+}
+
+.minimal-loader {
+    max-width: 360px;
+    padding: 20px 22px;
+    border-color: var(--glass-border);
+    background: rgba(14, 19, 28, 0.68);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+}
+
+#lobby-screen {
+    padding: 12px 18px 14px;
+    background: linear-gradient(90deg, rgba(6, 9, 14, 0.56), rgba(6, 9, 14, 0.1) 50%, rgba(6, 9, 14, 0.56));
+}
+
+.lobby-top {
+    padding-bottom: 4px;
+}
+
+.lobby-brand {
+    font-size: 1.25rem;
+    letter-spacing: 1.2px;
+}
+
+.lobby-top-pills {
+    gap: 7px;
+}
+
+.status-pill,
+.settings-trigger-btn {
+    padding: 5px 10px;
+    border-color: var(--glass-border);
+    background: var(--glass);
+    font-size: 0.68rem;
+    letter-spacing: 0.5px;
+}
+
+.lobby-body {
+    gap: 12px;
+    margin: 6px 0;
+}
+
+.lobby-panel,
+.modern-settings-card,
+.modern-result-card {
+    border-color: var(--glass-border);
+    border-radius: 12px;
+    background: rgba(12, 17, 25, 0.64);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+    backdrop-filter: blur(18px) saturate(130%);
+}
+
+.panel-header {
+    gap: 7px;
+    padding: 8px 11px;
+}
+
+.panel-badge {
+    padding: 2px 6px;
+    font-size: 0.57rem;
+    letter-spacing: 0.8px;
+}
+
+.panel-title {
+    font-size: 0.72rem;
+    letter-spacing: 0.8px;
+}
+
+.garage-panel {
+    width: clamp(210px, 21vw, 270px);
+    max-width: 24vw;
+}
+
+.car-switcher {
+    gap: 4px;
+    padding: 7px;
+}
+
+.car-slot {
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.035);
+}
+
+.slot-badge {
+    margin-bottom: 3px;
+    padding: 2px 5px;
+    font-size: 0.55rem;
+}
+
+.slot-name {
+    font-size: 0.78rem;
+    letter-spacing: 0.4px;
+}
+
+.slot-sub {
+    margin-top: 1px;
+    font-size: 0.59rem;
+    letter-spacing: 0.15px;
+}
+
+.lobby-right-column {
+    width: clamp(245px, 25vw, 310px);
+    max-width: 28vw;
+    gap: 7px;
+}
+
+.district-grid {
+    gap: 4px;
+    padding: 7px 8px;
+}
+
+.district-btn {
+    padding: 7px 4px;
+    border-radius: 7px;
+    background: rgba(255, 255, 255, 0.035);
+}
+
+.district-btn .d-name {
+    font-size: 0.66rem;
+}
+
+.city-status-badge {
+    padding: 0 9px 7px;
+    font-size: 0.58rem;
+    letter-spacing: 0.8px;
+}
+
+.mode-list {
+    max-height: 132px;
+    gap: 3px;
+    padding: 6px 8px;
+}
+
+.mode-row {
+    gap: 8px;
+    padding: 6px 8px;
+    border-radius: 7px;
+    background: rgba(255, 255, 255, 0.035);
+}
+
+.mode-row .mr-icon {
+    width: 18px;
+    font-size: 0.9rem;
+}
+
+.mode-row b {
+    font-size: 0.72rem;
+    letter-spacing: 0.4px;
+}
+
+.mode-row small {
+    font-size: 0.6rem;
+    letter-spacing: 0;
+}
+
+.info-panel {
+    padding: 9px 11px;
+}
+
+.info-panel h1 {
+    font-size: 1.08rem;
+    letter-spacing: 0.4px;
+}
+
+.car-sub,
+.info-panel p {
+    font-size: 0.64rem;
+    letter-spacing: 0;
+}
+
+.car-specs {
+    gap: 4px;
+}
+
+.spec-head {
+    font-size: 0.59rem;
+    letter-spacing: 0.5px;
+}
+
+.spec-bar {
+    height: 3px;
+    margin-top: 2px;
+}
+
+.info-divider {
+    margin: 7px 0;
+}
+
+.lobby-bottom {
+    padding-top: 4px;
+}
+
+.lobby-hint {
+    gap: 5px;
+}
+
+.hint-pill {
+    padding: 4px 7px;
+    border-color: var(--glass-border);
+    background: var(--glass);
+    font-size: 0.59rem;
+    letter-spacing: 0.2px;
+}
+
+.drive-btn {
+    padding: 10px 24px;
+    border-radius: 9px;
+    font-family: inherit;
+    font-size: 0.84rem;
+    letter-spacing: 0.8px;
+    box-shadow: 0 6px 18px rgba(50, 180, 196, 0.2);
+}
+
+.modern-radar-pod {
+    left: max(14px, env(safe-area-inset-left));
+    top: max(14px, env(safe-area-inset-top));
+    width: min(120px, 30vw);
+    filter: none;
+}
+
+.radar-header {
+    gap: 4px;
+    padding: 4px 6px;
+    border: 0;
+    border-radius: 9px 9px 0 0;
+    background: rgba(10, 15, 23, 0.52);
+    backdrop-filter: blur(12px);
+}
+
+.gps-icon {
+    font-size: 0.65rem;
+}
+
+#radar-district {
+    overflow: hidden;
+    font-size: 0.55rem;
+    letter-spacing: 0.35px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.radar-frame {
+    height: auto;
+    aspect-ratio: 1;
+    border: 0;
+    border-radius: 0 0 9px 9px;
+    background: rgba(8, 13, 20, 0.42);
+}
+
+#minimap {
+    border-radius: inherit;
+}
+
+.radar-meters {
+    height: 3px;
+    border: 0;
+    border-radius: 0 0 9px 9px;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.radar-meter-track {
+    background: transparent;
+}
+
+.health-track {
+    border-right: 1px solid rgba(255, 255, 255, 0.24);
+}
+
+.modern-speedo-pod {
+    right: max(14px, env(safe-area-inset-right));
+    bottom: max(88px, calc(env(safe-area-inset-bottom) + 78px));
+    width: 88px;
+    height: 88px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 50%;
+    background: rgba(10, 15, 23, 0.48);
+    backdrop-filter: blur(12px);
+    filter: none;
+}
+
+#speed {
+    font-size: 1.7rem;
+    font-weight: 600;
+    text-shadow: none;
+}
+
+.speed-unit {
+    margin-top: 1px;
+    font-size: 0.48rem;
+    letter-spacing: 0.8px;
+}
+
+.gear-badge {
+    margin-top: 2px;
+    padding: 1px 6px;
+    border: 0;
+    background: transparent;
+    font-size: 0.58rem;
+    box-shadow: none;
+}
+
+.modern-top-menu {
+    top: max(14px, env(safe-area-inset-top));
+    right: max(14px, env(safe-area-inset-right));
+    gap: 5px;
+}
+
+.ui-btn {
+    padding: 6px 10px;
+    border-color: var(--glass-border);
+    border-radius: 8px;
+    background: var(--glass);
+    font-size: 0.63rem;
+    letter-spacing: 0.3px;
+}
+
+.modern-event-hud {
+    top: 14px;
+    min-width: 220px;
+    padding: 8px 14px;
+    border-color: rgba(115, 229, 237, 0.2);
+    border-radius: 10px;
+    background: rgba(10, 15, 23, 0.62);
+    box-shadow: none;
+}
+
+.event-desc {
+    font-size: 0.8rem;
+}
+
+.event-sub {
+    font-size: 0.65rem;
+}
+
+#controls {
+    position: fixed;
+    bottom: max(10px, env(safe-area-inset-bottom));
+    padding: 0 max(12px, env(safe-area-inset-right)) 0 max(12px, env(safe-area-inset-left));
+    align-items: flex-end;
+}
+
+.control-group {
+    gap: 6px;
+    align-items: flex-end;
+}
+
+.btn {
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 50%;
+    background: rgba(12, 18, 27, 0.42);
+    box-shadow: none;
+    backdrop-filter: blur(10px);
+    font-size: 1rem;
+}
+
+.btn-pedal {
+    width: 46px;
+    height: 62px;
+    border-radius: 12px;
+    font-size: 0.65rem;
+    letter-spacing: 0.4px;
+}
+
+.btn.small-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 0.62rem;
+}
+
+.pedal-brake {
+    background: rgba(231, 76, 60, 0.2);
+    border-color: rgba(231, 76, 60, 0.36);
+}
+
+.gas-accent {
+    background: rgba(115, 229, 237, 0.13);
+    border-color: rgba(115, 229, 237, 0.32);
+}
+
+.modern-settings-card {
+    width: min(100%, 460px);
+    max-height: min(88vh, 640px);
+    padding: 17px 18px;
+}
+
+.modal-overlay {
+    background: rgba(5, 7, 12, 0.58);
+    backdrop-filter: blur(14px);
+}
+
+.settings-header {
+    padding-bottom: 9px;
+    margin-bottom: 11px;
+}
+
+.settings-header h2 {
+    font-size: 1rem;
+    letter-spacing: 0.6px;
+}
+
+.settings-subtitle {
+    font-size: 0.59rem;
+    letter-spacing: 0.35px;
+}
+
+.close-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 1.2rem;
+}
+
+.tab-row {
+    gap: 4px;
+    margin-bottom: 10px;
+    padding: 3px;
+    border-radius: 9px;
+}
+
+.tab-btn {
+    padding: 7px 5px;
+    border-radius: 7px;
+    font-size: 0.65rem;
+    letter-spacing: 0.4px;
+}
+
+.setting-row {
+    gap: 6px;
+    padding: 9px 10px;
+    margin-bottom: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.055);
+    border-radius: 9px;
+    background: rgba(255, 255, 255, 0.035);
+}
+
+.setting-title {
+    font-size: 0.76rem;
+    letter-spacing: 0.15px;
+}
+
+.setting-val,
+.setting-desc {
+    font-size: 0.65rem;
+}
+
+input[type="range"] {
+    height: 3px;
+}
+
+.toggle-switch {
+    width: 38px;
+    height: 20px;
+    flex: none;
+}
+
+.toggle-switch .slider:before {
+    width: 12px;
+    height: 12px;
+    left: 3px;
+    bottom: 3px;
+}
+
+.toggle-switch input:checked + .slider:before {
+    transform: translateX(18px);
+}
+
+.opt-row,
+.quality-btn-group {
+    gap: 5px;
+}
+
+.opt-chip,
+.q-btn {
+    padding: 6px 8px;
+    border-radius: 7px;
+    font-size: 0.66rem;
+    letter-spacing: 0.4px;
+}
+
+.apply-btn {
+    margin-top: 9px;
+    padding: 10px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.75rem;
+    letter-spacing: 0.8px;
+}
+
+@media (max-width: 960px) {
+    #lobby-screen {
+        padding: max(8px, env(safe-area-inset-top)) 10px 0;
+    }
+
+    .lobby-body {
+        gap: 8px;
+    }
+
+    .garage-panel,
+    .lobby-right-column {
+        width: 100%;
+        max-width: none;
+    }
+
+    .car-switcher {
+        gap: 4px;
+        padding: 6px;
+    }
+
+    .car-slot {
+        padding: 7px 8px;
+    }
+
+    .slot-name {
+        font-size: 0.7rem;
+    }
+
+    .slot-sub {
+        font-size: 0.56rem;
+    }
+
+    .lobby-center-preview {
+        height: clamp(120px, 22vh, 190px);
+        min-height: 110px;
+    }
+
+    .modern-radar-pod {
+        width: min(120px, 28vw);
+    }
+
+    .modern-speedo-pod {
+        right: max(10px, env(safe-area-inset-right));
+        bottom: max(82px, calc(env(safe-area-inset-bottom) + 70px));
+        width: 78px;
+        height: 78px;
+    }
+
+    #speed {
+        font-size: 1.5rem;
+    }
+
+    #controls {
+        bottom: max(8px, env(safe-area-inset-bottom));
+        padding: 0 max(10px, env(safe-area-inset-right)) 0 max(10px, env(safe-area-inset-left));
+    }
+
+    .modern-settings-card {
+        width: min(100%, 430px);
+        max-height: calc(100dvh - 20px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+        padding: 13px;
+    }
+
+    .setting-row {
+        padding: 8px;
+    }
+}
+
+@media (max-width: 580px) {
+    .lobby-brand {
+        font-size: 1rem;
+    }
+
+    .status-pill,
+    .settings-trigger-btn {
+        padding: 4px 7px;
+        font-size: 0.58rem;
+    }
+
+    .lobby-center-preview {
+        height: clamp(100px, 17vh, 145px);
+        min-height: 95px;
+    }
+
+    .modern-radar-pod {
+        width: min(108px, 28vw);
+    }
+
+    .modern-speedo-pod {
+        width: 70px;
+        height: 70px;
+        bottom: max(76px, calc(env(safe-area-inset-bottom) + 66px));
+    }
+
+    #speed {
+        font-size: 1.35rem;
+    }
+
+    .btn {
+        width: 43px;
+        height: 43px;
+    }
+
+    .btn-pedal {
+        width: 42px;
+        height: 56px;
+        font-size: 0.6rem;
+    }
+
+    .btn.small-btn {
+        width: 32px;
+        height: 32px;
+    }
+
+    .modern-settings-card {
+        padding: 11px;
+    }
+
+    .settings-header h2 {
+        font-size: 0.88rem;
+    }
+
+    .setting-row {
+        gap: 5px;
+        padding: 7px;
+    }
+
+    .setting-title {
+        font-size: 0.7rem;
+    }
+
+    .setting-desc {
+        font-size: 0.6rem;
+    }
+}
+
+/* Mobile lobby layout and monochrome graphite palette */
+:root {
+    --glass: rgba(15, 17, 20, 0.72);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --accent: #d7dbe0;
+}
+
+.lobby-brand .brand-accent,
+.car-slot.selected .slot-sub,
+.district-btn .highlight-tag,
+.district-btn.active .d-tag,
+.city-status-badge,
+.setting-val,
+.speed-unit,
+.event-type-badge {
+    color: #d7dbe0;
+    text-shadow: none;
+}
+
+.pill-dot {
+    background: #d7dbe0;
+    box-shadow: none;
+}
+
+.cash-pill,
+.cash-sym {
+    color: #d7dbe0;
+    border-color: var(--glass-border);
+}
+
+.car-slot.selected,
+.district-btn.active,
+.mode-row.active {
+    border-color: rgba(255, 255, 255, 0.42);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.panel-badge,
+.car-badge,
+.tab-btn.active,
+.opt-chip.active,
+.q-btn.active,
+.toggle-switch input:checked + .slider {
+    color: #f4f5f6;
+    background: #282b30;
+    border-color: rgba(255, 255, 255, 0.16);
+    box-shadow: none;
+}
+
+.badge-s1,
+.badge-s2,
+.badge-a,
+.badge-b {
+    color: #eef0f2;
+    background: #34373c;
+}
+
+.spec-bar div,
+#loading-bar {
+    background: linear-gradient(90deg, #777d85, #c5c9ce);
+    box-shadow: none;
+}
+
+.drive-btn,
+.apply-btn {
+    color: #f5f6f7;
+    background: linear-gradient(135deg, #34373c, #17191c);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.28);
+}
+
+.ui-btn:hover,
+.settings-trigger-btn:hover {
+    color: #fff;
+    background: #34373c;
+    border-color: rgba(255, 255, 255, 0.24);
+    box-shadow: none;
+}
+
+.btn:active,
+.gas-accent:active {
+    color: #fff;
+    background: #34373c;
+    border-color: rgba(255, 255, 255, 0.34);
+    box-shadow: none;
+}
+
+.modern-event-hud {
+    border-color: rgba(255, 255, 255, 0.16);
+}
+
+@media (max-width: 640px) and (orientation: portrait) {
+    #lobby-screen {
+        padding: max(7px, env(safe-area-inset-top)) 9px 0;
+        background: linear-gradient(180deg, rgba(5, 6, 8, 0.42), rgba(5, 6, 8, 0.16) 58%, rgba(5, 6, 8, 0.56));
+    }
+
+    .lobby-top {
+        flex: none;
+        min-height: 30px;
+        align-items: center;
+        gap: 6px;
+        padding-bottom: 3px;
+    }
+
+    .lobby-brand {
+        font-size: 0.9rem;
+        letter-spacing: 0.7px;
+    }
+
+    .lobby-top-pills {
+        gap: 0;
+    }
+
+    .rank-pill,
+    .cash-pill {
+        display: none;
+    }
+
+    .settings-trigger-btn {
+        display: grid;
+        width: 32px;
+        height: 32px;
+        place-items: center;
+        padding: 0;
+        border-radius: 7px;
+        font-size: 1rem;
+    }
+
+    .panel-header {
+        padding: 6px 9px;
+    }
+
+    .panel-title {
+        font-size: 0.68rem;
+        letter-spacing: 0.6px;
+    }
+
+    .slot-sub,
+    .city-status-badge {
+        display: none;
+    }
+
+    .lobby-body {
+        display: flex;
+        flex: 1;
+        min-height: 0;
+        max-height: none;
+        flex-direction: column;
+        gap: 6px;
+        margin: 3px 0 0;
+        padding: 0 0 calc(64px + env(safe-area-inset-bottom));
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .lobby-body::-webkit-scrollbar,
+    .car-switcher::-webkit-scrollbar {
+        display: none;
+    }
+
+    .garage-panel,
+    .lobby-right-column {
+        width: 100%;
+        max-width: none;
+        flex: none;
+    }
+
+    .garage-panel {
+        order: 1;
+        overflow: hidden;
+    }
+
+    .panel-header {
+        gap: 6px;
+        padding: 6px 8px;
+    }
+
+    .panel-badge {
+        padding: 2px 5px;
+        font-size: 0.52rem;
+    }
+
+    .panel-title {
+        font-size: 0.65rem;
+    }
+
+    .car-switcher {
+        display: flex;
+        flex-direction: row;
+        gap: 6px;
+        max-height: none;
+        padding: 6px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+    }
+
+    .car-slot {
+        flex: 0 0 138px;
+        min-width: 0;
+        min-height: 62px;
+        padding: 7px 8px;
+        border-radius: 8px;
+        scroll-snap-align: start;
+    }
+
+    .slot-badge {
+        margin-bottom: 2px;
+        font-size: 0.5rem;
+    }
+
+    .slot-name {
+        font-size: 0.67rem;
+        letter-spacing: 0.2px;
+    }
+
+    .slot-sub {
+        overflow: hidden;
+        font-size: 0.53rem;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .lobby-center-preview {
+        order: 2;
+        flex: 0 0 clamp(92px, 16vh, 128px);
+        width: 100%;
+        min-width: 0;
+        min-height: 0;
+        height: auto;
+    }
+
+    .lobby-right-column {
+        order: 3;
+        gap: 6px;
+        overflow: visible;
+    }
+
+    .district-grid {
+        gap: 5px;
+        padding: 6px 7px;
+    }
+
+    .district-btn {
+        min-height: 42px;
+        padding: 5px 4px;
+        gap: 2px;
+        border-radius: 7px;
+    }
+
+    .district-btn .d-tag {
+        font-size: 0.51rem;
+    }
+
+    .district-btn .d-name {
+        font-size: 0.59rem;
+        letter-spacing: 0;
+    }
+
+    .city-status-badge {
+        padding: 0 8px 6px;
+        font-size: 0.52rem;
+        letter-spacing: 0.4px;
+    }
+
+    .mode-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 4px;
+        max-height: none;
+        padding: 6px;
+        overflow: visible;
+    }
+
+    .mode-row {
+        min-width: 0;
+        min-height: 32px;
+        gap: 5px;
+        padding: 5px 6px;
+        border-radius: 7px;
+    }
+
+    .mode-row .mr-icon {
+        width: 16px;
+        font-size: 0.78rem;
+    }
+
+    .mode-row b {
+        overflow: hidden;
+        font-size: 0.59rem;
+        letter-spacing: 0;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .mode-row small {
+        display: none;
+    }
+
+    #telemetry-panel {
+        display: none;
+    }
+
+    .lobby-bottom {
+        position: fixed;
+        inset: auto 0 0;
+        justify-content: center;
+        padding: 7px 9px max(8px, env(safe-area-inset-bottom));
+        background: linear-gradient(180deg, transparent, rgba(5, 6, 8, 0.94) 35%);
+        z-index: 105;
+    }
+
+    .lobby-bottom .drive-btn {
+        width: 100%;
+        max-width: none;
+        padding: 10px 14px;
+        border-radius: 8px;
+        font-size: 0.76rem;
+    }
+}
+
+@media (max-width: 960px) and (orientation: landscape) {
+    .settings-trigger-btn {
+        display: grid;
+        width: 30px;
+        height: 30px;
+        place-items: center;
+        padding: 0;
+        font-size: 0.95rem;
+    }
+
+    .city-status-badge {
+        display: none;
+    }
+}
+
+/* Compact in-game map and touch controls */
+.modern-radar-pod {
+    filter: none;
+}
+
+.radar-frame {
+    background: transparent;
+}
+
+@media (max-width: 960px) {
+    .modern-radar-pod {
+        left: max(10px, env(safe-area-inset-left));
+        top: max(10px, env(safe-area-inset-top));
+        width: clamp(76px, 18vw, 104px);
+    }
+
+    .radar-header,
+    .radar-meters {
+        display: none;
+    }
+
+    .radar-frame {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 50%;
+        background: rgba(8, 12, 17, 0.45);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22);
+    }
+
+    #minimap {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+    }
+
+    #controls {
+        bottom: max(10px, env(safe-area-inset-bottom));
+        padding-left: max(12px, env(safe-area-inset-left));
+        padding-right: max(12px, env(safe-area-inset-right));
+        align-items: flex-end;
+    }
+
+    .steer-group,
+    .pedal-group {
+        gap: clamp(5px, 1.4vw, 9px);
+    }
+
+    .steer-group .btn {
+        display: grid;
+        width: clamp(42px, 10vw, 50px);
+        height: clamp(42px, 10vw, 50px);
+        place-items: center;
+        border-radius: 50%;
+        background: rgba(12, 17, 24, 0.48);
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 0.9rem;
+    }
+
+    .pedal-group .btn-pedal {
+        width: clamp(42px, 9vw, 50px);
+        height: clamp(58px, 14vw, 68px);
+        border-radius: 13px;
+        font-size: 0.62rem;
+        font-weight: 700;
+        letter-spacing: 0.25px;
+    }
+
+    .pedal-group .small-btn {
+        width: clamp(31px, 7vw, 36px);
+        height: clamp(31px, 7vw, 36px);
+        font-size: 0.56rem;
+    }
+
+    .pedal-brake {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .gas-accent {
+        background: rgba(115, 229, 237, 0.22);
+        border-color: rgba(115, 229, 237, 0.42);
+    }
+
+    .modern-speedo-pod {
+        right: max(12px, env(safe-area-inset-right));
+        bottom: calc(88px + env(safe-area-inset-bottom));
+        width: 76px;
+        height: 76px;
+    }
+
+    #speed {
+        font-size: 1.45rem;
+    }
+
+    .speed-unit {
+        font-size: 0.45rem;
+    }
+}
+
+@media (max-width: 640px) and (orientation: portrait) {
+    .modern-speedo-pod {
+        bottom: calc(102px + env(safe-area-inset-bottom));
+        width: 70px;
+        height: 70px;
+    }
+
+    #controls {
+        bottom: max(9px, env(safe-area-inset-bottom));
+    }
+}
+
+@media (max-width: 960px) and (orientation: landscape) and (max-height: 520px) {
+    .modern-radar-pod {
+        width: 76px;
+    }
+
+    .modern-speedo-pod {
+        bottom: calc(78px + env(safe-area-inset-bottom));
+        width: 68px;
+        height: 68px;
+    }
+
+    #speed {
+        font-size: 1.3rem;
+    }
+
+    .steer-group .btn {
+        width: 40px;
+        height: 40px;
+    }
+
+    .pedal-group .btn-pedal {
+        width: 40px;
+        height: 54px;
+    }
+
+    .pedal-group .small-btn {
+        width: 29px;
+        height: 29px;
+    }
+}
